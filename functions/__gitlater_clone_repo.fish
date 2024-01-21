@@ -1,7 +1,7 @@
 # GitNow — Speed up your Git workflow. 🐠
-# https://github.com/joseluisq/gitnow
+# https://github.com/halostatue/gitlater
 
-function __gitnow_clone_repo
+function __gitlater_clone_repo
     set -l repo $argv[1]
     set -l platform $argv[2]
 
@@ -33,9 +33,9 @@ function __gitnow_clone_repo
             echo "📦 Remote repository: $repo_url"
             command git clone $repo_url
         else
-            __gitnow_clone_msg $platform
+            __gitlater_clone_msg $platform
         end
     else
-        __gitnow_clone_msg $platform
+        __gitlater_clone_msg $platform
     end
 end

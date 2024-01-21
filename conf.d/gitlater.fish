@@ -1,47 +1,47 @@
-# GitNow — Speed up your Git workflow. 🐠
-# https://github.com/joseluisq/gitnow
+# GitLater: Speed up your 🐠 Git workflow…without Gitflow.
+# https://github.com/halostatue/gitlater
 
-set -g gitnow_version 2.12.0
+set -g gitlater_version 1.0.0
 
 # Default global variables
-set -q GITNOW_CONFIG_FILE; or set -g GITNOW_CONFIG_FILE ~/.gitnow
-set -g gitnow_commands 'all' 'assume' 'bitbucket' 'bugfix' 'commit' 'commit-all' 'feature' 'github' 'gitnow' 'hotfix' 'logs' 'merge' 'move' 'pull' 'push' 'release' 'show' 'stage' 'state' 'tag' 'unstage' 'untracked' 'upstream'
+set -q GITLATER_CONFIG_FILE; or set -g GITLATER_CONFIG_FILE ~/.gitlater
+set -g gitlater_commands all assume bitbucket commit commit-all github gitlater logs merge move pull push show stage state tag unstage untracked upstream
 
 if set -q __fish_config_dir
     set -g fish_config "$__fish_config_dir"
 else
     set -q XDG_CONFIG_HOME
-        and set -g fish_config "$XDG_CONFIG_HOME/fish"
-        or set -g fish_config "~/.config/fish"
+    and set -g fish_config "$XDG_CONFIG_HOME/fish"
+    or set -g fish_config "~/.config/fish"
 end
 
 set -q fish_snippets; or set -g fish_snippets "$fish_config/conf.d"
 
-__gitnow_load_config
+__gitlater_load_config
 
 # Other specific global variables
 set -g g_current_branch
 
-function __gitnow_install -e gitnow_install
-    echo (gitnow -v)" is installed and ready to use!"
-    echo "Just run the `gitnow` command if you want explore the API."
+function __gitlater_install -e gitlater_install
+    echo (gitlater -v)" is installed and ready to use!"
+    echo "Just run the `gitlater` command if you want explore the API."
 end
 
-function __gitnow_uninstall -e gitnow_uninstall
+function __gitlater_uninstall -e gitlater_uninstall
     echo "GitNow was uninstalled successfully."
 end
 
-function gitnow -d "Gitnow: Speed up your Git workflow. 🐠" -a xversion
-    if [ "$xversion" = "-v" ]; or [ "$xversion" = "--version" ]
-        echo "GitNow version $gitnow_version"
+function gitlater -d "Gitnow: Speed up your Git workflow. 🐠" -a xversion
+    if [ "$xversion" = -v ]; or [ "$xversion" = --version ]
+        echo "GitNow version $gitlater_version"
     else
-        __gitnow_manual | command less -r
+        __gitlater_manual | command less -r
     end
 end
 
 function state -d "Gitnow: Show the working tree status in compact way"
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "state"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository state
         return
     end
 
@@ -49,8 +49,8 @@ function state -d "Gitnow: Show the working tree status in compact way"
 end
 
 function stage -d "Gitnow: Stage files in current working directory" -w 'git add'
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "stage"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository stage
         return
     end
 
@@ -65,8 +65,8 @@ function stage -d "Gitnow: Stage files in current working directory" -w 'git add
 end
 
 function unstage -d "Gitnow: Unstage files in current working directory" -w 'git reset'
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "unstage"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository unstage
         return
     end
 
@@ -81,8 +81,8 @@ function unstage -d "Gitnow: Unstage files in current working directory" -w 'git
 end
 
 function show -d "Gitnow: Show commit detail objects" -w 'git show'
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "show"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository show
         return
     end
 
@@ -96,8 +96,8 @@ function show -d "Gitnow: Show commit detail objects" -w 'git show'
 end
 
 function untracked -d "Gitnow: Check for untracked files and directories on current working directory"
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "untracked"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository untracked
         return
     end
 
@@ -106,8 +106,8 @@ function untracked -d "Gitnow: Check for untracked files and directories on curr
 end
 
 function commit -d "Gitnow: Commit changes to the repository" -w 'git commit'
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "commit"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository commit
         return
     end
 
@@ -121,8 +121,8 @@ function commit -d "Gitnow: Commit changes to the repository" -w 'git commit'
 end
 
 function commit-all -d "Gitnow: Add and commit all changes to the repository"
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "commit-all"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository commit-all
         return
     end
 
@@ -131,14 +131,14 @@ function commit-all -d "Gitnow: Add and commit all changes to the repository"
 end
 
 function pull -d "Gitnow: Pull changes from remote server but stashing uncommitted changes" -w 'git pull'
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "pull"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository pull
         return
     end
 
     set -l len (count $argv)
-    set -l xorigin (__gitnow_current_remote)
-    set -l xbranch (__gitnow_current_branch_name)
+    set -l xorigin (__gitlater_current_remote)
+    set -l xbranch (__gitlater_current_branch_name)
     set -l xcmd ""
 
     echo "⚡️ Pulling changes..."
@@ -178,14 +178,14 @@ end
 # Git push with --set-upstream
 # Shortcut inspired from https://github.com/jamiew/git-friendly
 function push -d "Gitnow: Push commit changes to remote repository" -w 'git push'
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "push"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository push
         return
     end
 
     set -l opts $argv
-    set -l xorigin (__gitnow_current_remote)
-    set -l xbranch (__gitnow_current_branch_name)
+    set -l xorigin (__gitlater_current_remote)
+    set -l xbranch (__gitlater_current_branch_name)
 
 
     if test (count $opts) -eq 0
@@ -197,7 +197,7 @@ function push -d "Gitnow: Push commit changes to remote repository" -w 'git push
         echo "Remote URL: $xorigin ($xremote_url)"
         echo "Remote branch: $xbranch"
     else
-        set -l v_mode "auto"
+        set -l v_mode auto
 
         for v in $argv
             switch $v
@@ -210,7 +210,7 @@ function push -d "Gitnow: Push commit changes to remote repository" -w 'git push
                     echo "Remote URL: $xorigin ($xremote_url)"
                     echo "Remote branch: $xbranch"
                 case -h --help
-                    echo "NAME"
+                    echo NAME
                     echo "      Gitnow: push - Push current branch to default origin"
                     echo "OPTIONS:"
                     echo "      -t --tags               (auto mode) include annotated tags that relate to the commits"
@@ -218,7 +218,7 @@ function push -d "Gitnow: Push commit changes to remote repository" -w 'git push
                     return
                 case -\*
                 case '*'
-                    set -l v_mode "manual"
+                    set -l v_mode manual
                     echo "Mode: Manual"
             end
         end
@@ -230,8 +230,8 @@ function push -d "Gitnow: Push commit changes to remote repository" -w 'git push
 end
 
 function upstream -d "Gitnow: Commit all changes and push them to remote server"
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "upstream"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository upstream
         return
     end
 
@@ -239,45 +239,9 @@ function upstream -d "Gitnow: Commit all changes and push them to remote server"
     push
 end
 
-function feature -d "GitNow: Creates a new Gitflow feature branch from current branch" -a xbranch
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "feature"
-        return
-    end
-
-    __gitnow_gitflow_branch "feature" $xbranch
-end
-
-function hotfix -d "GitNow: Creates a new Gitflow hotfix branch from current branch" -a xbranch
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "hotfix"
-        return
-    end
-
-    __gitnow_gitflow_branch "hotfix" $xbranch
-end
-
-function bugfix -d "GitNow: Creates a new Gitflow bugfix branch from current branch" -a xbranch
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "bugfix"
-        return
-    end
-
-    __gitnow_gitflow_branch "bugfix" $xbranch
-end
-
-function release -d "GitNow: Creates a new Gitflow release branch from current branch" -a xbranch
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "release"
-        return
-    end
-
-    __gitnow_gitflow_branch "release" $xbranch
-end
-
 function merge -d "GitNow: Merges given branch into the active one"
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "merge"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository merge
         return
     end
 
@@ -298,9 +262,9 @@ function merge -d "GitNow: Merges given branch into the active one"
             case -c --continue
                 set v_continue $v
             case -h --help
-                echo "NAME"
+                echo NAME
                 echo "      Gitnow: merge - Merge given branch into the active one"
-                echo "EXAMPLES"
+                echo EXAMPLES
                 echo "      merge <branch to merge>"
                 echo "OPTIONS:"
                 echo "      -a --abort              Abort a conflicted merge"
@@ -314,14 +278,14 @@ function merge -d "GitNow: Merges given branch into the active one"
     end
 
     # abort
-    if test "$v_abort";
+    if test "$v_abort"
         echo "Abort the current merge"
         command git merge --abort
         return
     end
 
     # continue
-    if test "$v_continue";
+    if test "$v_continue"
         echo "Continue the current merge"
         command git merge --continue
         return
@@ -333,17 +297,17 @@ function merge -d "GitNow: Merges given branch into the active one"
         return
     end
 
-    set -l v_found (__gitnow_check_if_branch_exist $v_branch)
+    set -l v_found (__gitlater_check_if_branch_exist $v_branch)
 
     # Branch was not found
-    if test $v_found -eq 0;
+    if test $v_found -eq 0
         echo "Local branch `$v_branch` was not found. Not possible to merge."
 
         return
     end
 
     # Detect merging current branch
-    if [ "$v_branch" = (__gitnow_current_branch_name) ]
+    if [ "$v_branch" = (__gitlater_current_branch_name) ]
         echo "Branch `$v_branch` is the same as current branch. Nothing to do."
         return
     end
@@ -352,8 +316,8 @@ function merge -d "GitNow: Merges given branch into the active one"
 end
 
 function move -d "GitNow: Switch from current branch to another but stashing uncommitted changes" -a args
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "move"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository move
         return
     end
 
@@ -369,14 +333,14 @@ function move -d "GitNow: Switch from current branch to another but stashing unc
             case -n --no-apply-stash
                 set v_no_apply_stash $v
             case -nu -un
-                set v_upstream "-u"
-                set v_no_apply_stash "-n"
+                set v_upstream -u
+                set v_no_apply_stash -n
             case -p --prev
-                set v_prev "true"
+                set v_prev true
             case -h --help
-                echo "NAME"
+                echo NAME
                 echo "      Gitnow: move - Switch from current branch to another but stashing uncommitted changes"
-                echo "EXAMPLES"
+                echo EXAMPLES
                 echo "      move <branch to switch to>"
                 echo "      move -"
                 echo "OPTIONS:"
@@ -392,8 +356,12 @@ function move -d "GitNow: Switch from current branch to another but stashing unc
     end
 
     # Move to prev branch either via the --prev option or the "-" shorthand char
-    if begin test -n "$v_prev"; or [ "$args" = "-" ]; end
-        if begin test -z "$g_current_branch"; or [ "$g_current_branch" = (__gitnow_current_branch_name) ]; end
+    if begin
+            test -n "$v_prev"; or [ "$args" = - ]
+        end
+        if begin
+                test -z "$g_current_branch"; or [ "$g_current_branch" = (__gitlater_current_branch_name) ]
+            end
             echo "Previous branch not found or the same as current one. Nothing to do."
             echo "Tip: Previous branch switching only works via the `move` command."
             return
@@ -414,35 +382,37 @@ function move -d "GitNow: Switch from current branch to another but stashing unc
 
     # Fetch branch from remote
     if test -n "$v_upstream"
-        set -l v_remote (__gitnow_current_remote)
+        set -l v_remote (__gitlater_current_remote)
         command git fetch $v_remote $v_branch:refs/remotes/$v_remote/$v_branch
         command git checkout --track $v_remote/$v_branch
         return
     end
 
-    set -l v_found (__gitnow_check_if_branch_exist $v_branch)
+    set -l v_found (__gitlater_check_if_branch_exist $v_branch)
 
     # Branch was not found
-    if begin test $v_found -eq 0; and test $v_fetched -eq 0; end
+    if begin
+            test $v_found -eq 0; and test $v_fetched -eq 0
+        end
         echo "Branch `$v_branch` was not found locally. No possible to switch."
         echo "Tip: Use -u (--upstream) flag to fetch a remote branch."
         return
     end
 
     # Prevent same branch switching
-    if [ "$v_branch" = (__gitnow_current_branch_name) ]
+    if [ "$v_branch" = (__gitlater_current_branch_name) ]
         echo "Branch `$v_branch` is the same as current branch. Nothing to do."
         return
     end
 
-    set -l v_uncommited (__gitnow_has_uncommited_changes)
+    set -l v_uncommited (__gitlater_has_uncommited_changes)
 
     # Stash changes before checkout for uncommited changes only
     if test $v_uncommited
         command git stash
     end
 
-    set g_current_branch (__gitnow_current_branch_name)
+    set g_current_branch (__gitlater_current_branch_name)
     command git checkout $v_branch
 
     # --no-apply-stash
@@ -450,27 +420,29 @@ function move -d "GitNow: Switch from current branch to another but stashing unc
         echo "Changes were stashed but not applied by default. Use `git stash pop` to apply them."
     end
 
-    if begin test $v_uncommited; and not test -n "$v_no_apply_stash"; end
+    if begin
+            test $v_uncommited; and not test -n "$v_no_apply_stash"
+        end
         command git stash pop
         echo "Stashed changes were applied."
     end
 end
 
 function logs -d "Gitnow: Shows logs in a fancy way"
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "logs"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository logs
         return
     end
 
-    set -l v_max_commits "80"
+    set -l v_max_commits 80
     set -l v_args
 
     for v in $argv
         switch $v
             case -h --help
-                echo "NAME"
+                echo NAME
                 echo "      Gitnow: logs - Show logs in a fancy way (first $v_max_commits commits by default)"
-                echo "EXAMPLES"
+                echo EXAMPLES
                 echo "      logs [git log options]"
                 echo "EXTRA OPTIONS:"
                 echo "      -h, --help      Show information about the options for this command"
@@ -494,8 +466,8 @@ function logs -d "Gitnow: Shows logs in a fancy way"
 end
 
 function tag -d "Gitnow: Tag commits following Semver"
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "tag"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository tag
         return
     end
 
@@ -509,7 +481,7 @@ function tag -d "Gitnow: Tag commits following Semver"
     set -l opts
 
     # NOTE: this function only gets the latest *Semver release version* but no suffixed ones or others
-    set -l v_latest (__gitnow_get_latest_semver_release_tag)
+    set -l v_latest (__gitlater_get_latest_semver_release_tag)
 
     for v in $argv
         switch $v
@@ -522,13 +494,13 @@ function tag -d "Gitnow: Tag commits following Semver"
             case -a --annotate
                 set opts $opts $v
 
-            # TODO: pre-release versions are not supported yet
-            # case -a --premajor
-            #     set v_premajor $v
-            # case -b --preminor
-            #     set v_preminor $v
-            # case -c --prepatch
-            #     set v_prepatch $v
+                # TODO: pre-release versions are not supported yet
+                # case -a --premajor
+                #     set v_premajor $v
+                # case -b --preminor
+                #     set v_preminor $v
+                # case -c --prepatch
+                #     set v_prepatch $v
 
             case -l --latest
                 if not test -n "$v_latest"
@@ -539,10 +511,10 @@ function tag -d "Gitnow: Tag commits following Semver"
 
                 return
             case -h --help
-                echo "NAME"
+                echo NAME
                 echo "      Gitnow: tag - List or tag commits following The Semantic Versioning 2.0.0 (Semver) [1]"
                 echo "      [1] https://semver.org/"
-                echo "EXAMPLES"
+                echo EXAMPLES
                 echo "      List tags: tag"
                 echo "      Custom tag: tag <my tag name>"
                 echo "      Semver tag: tag --major"
@@ -569,7 +541,7 @@ function tag -d "Gitnow: Tag commits following Semver"
 
     # List all tags in a lexicographic order and treating tag names as versions
     if test -z "$argv"
-        __gitnow_get_tags_ordered
+        __gitlater_get_tags_ordered
         return
     end
 
@@ -580,7 +552,7 @@ function tag -d "Gitnow: Tag commits following Semver"
             echo "First major tag \"v1.0.0\" was created."
             return
         else
-            set -l vstr (__gitnow_get_valid_semver_release_value $v_latest)
+            set -l vstr (__gitlater_get_valid_semver_release_value $v_latest)
 
             # Validate Semver format before to proceed
             if not test -n "$vstr"
@@ -590,7 +562,7 @@ function tag -d "Gitnow: Tag commits following Semver"
 
             set -l x (echo $vstr | LC_ALL=C command awk -F '.' '{print $1}')
             set -l prefix (echo $v_latest | LC_ALL=C command awk -F "$vstr" '{print $1}')
-            set x (__gitnow_increment_number $x)
+            set x (__gitlater_increment_number $x)
             set -l xyz "$prefix$x.0.0"
 
             command git tag $opts $xyz
@@ -606,7 +578,7 @@ function tag -d "Gitnow: Tag commits following Semver"
             echo "First minor tag \"v0.1.0\" was created."
             return
         else
-            set -l vstr (__gitnow_get_valid_semver_release_value $v_latest)
+            set -l vstr (__gitlater_get_valid_semver_release_value $v_latest)
 
             # Validate Semver format before to proceed
             if not test -n "$vstr"
@@ -617,7 +589,7 @@ function tag -d "Gitnow: Tag commits following Semver"
             set -l x (echo $vstr | LC_ALL=C command awk -F '.' '{print $1}')
             set -l y (echo $vstr | LC_ALL=C command awk -F '.' '{print $2}')
             set -l prefix (echo $v_latest | LC_ALL=C command awk -F "$vstr" '{print $1}')
-            set y (__gitnow_increment_number $y)
+            set y (__gitlater_increment_number $y)
             set -l xyz "$prefix$x.$y.0"
 
             command git tag $opts $xyz
@@ -634,7 +606,7 @@ function tag -d "Gitnow: Tag commits following Semver"
             echo "First patch tag \"v0.1.0\" was created."
             return
         else
-            set -l vstr (__gitnow_get_valid_semver_release_value $v_latest)
+            set -l vstr (__gitlater_get_valid_semver_release_value $v_latest)
 
             # Validate Semver format before to proceed
             if not test -n "$vstr"
@@ -647,9 +619,9 @@ function tag -d "Gitnow: Tag commits following Semver"
             set -l z (echo $vstr | LC_ALL=C command awk -F '.' '{print $3}')
             set -l s (echo $z | LC_ALL=C command awk -F '-' '{print $1}')
 
-            if __gitnow_is_number $s
+            if __gitlater_is_number $s
                 set -l prefix (echo $v_latest | LC_ALL=C command awk -F "$vstr" '{print $1}')
-                set s (__gitnow_increment_number $s)
+                set s (__gitlater_increment_number $s)
                 set -l xyz "$prefix$x.$y.$s"
 
                 command git tag $opts $xyz
@@ -669,20 +641,20 @@ function tag -d "Gitnow: Tag commits following Semver"
 end
 
 function assume -d "Gitnow: Ignore files temporarily"
-    if not __gitnow_is_git_repository
-        __gitnow_msg_not_valid_repository "assume"
+    if not __gitlater_is_git_repository
+        __gitlater_msg_not_valid_repository assume
         return
     end
 
-    set -l v_assume_unchanged "--assume-unchanged"
+    set -l v_assume_unchanged --assume-unchanged
     set -l v_files
 
     for v in $argv
         switch $v
             case -n --no-assume
-                set v_assume_unchanged "--no-assume-unchanged"
+                set v_assume_unchanged --no-assume-unchanged
             case -h --help
-                echo "NAME"
+                echo NAME
                 echo "      Gitnow: assume - Ignores changes in certain files temporarily"
                 echo "OPTIONS:"
                 echo "      -n --no-assume  No assume unchanged files to be ignored (revert option)"
@@ -703,11 +675,11 @@ function assume -d "Gitnow: Ignore files temporarily"
 end
 
 function github -d "Gitnow: Clone a GitHub repository using SSH"
-    set -l repo (__gitnow_clone_params $argv)
-    __gitnow_clone_repo $repo "github"
+    set -l repo (__gitlater_clone_params $argv)
+    __gitlater_clone_repo $repo github
 end
 
 function bitbucket -d "Gitnow: Clone a Bitbucket Cloud repository using SSH"
-    set -l repo (__gitnow_clone_params $argv)
-    __gitnow_clone_repo $repo "bitbucket"
+    set -l repo (__gitlater_clone_params $argv)
+    __gitlater_clone_repo $repo bitbucket
 end

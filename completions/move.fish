@@ -1,9 +1,9 @@
 # GitNow — Speed up your Git workflow. 🐠
-# https://github.com/joseluisq/gitnow
+# https://github.com/halostatue/gitlater
 
 # Move command
 
-__gitnow_load_git_functions
+__gitlater_load_git_functions
 
 complete -f -x -c move -a '(__fish_git_branches)'
 

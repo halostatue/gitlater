@@ -1,27 +1,25 @@
 [package]
-name = "gitnow"
-version = "2.12.0"
+name = "gitlater"
+version = "1.0.0"
 authors = ["Jose Quintana <joseluisq.net>"]
 license = "MIT OR Apache-2.0"
-description = "Speed up your Git workflow. 🐠"
-repository = "https://github.com/joseluisq/gitnow"
+description = "GitLater: Speed up your 🐠 Git workflow…without Gitflow."
+repository = "https://github.com/halostatue/gitlater"
 keywords = [
-    "git",
-    "git-workflow",
-    "fish-shell",
-    "fish-packages",
-    "keybindings",
-    "bitbucket",
-    "github"
+  "git",
+  "git-workflow",
+  "fish-shell",
+  "fish-packages",
+  "keybindings",
+  "bitbucket",
+  "github",
 ]
 
-include = [
-    "conf.d/.gitnow"
-]
+include = ["conf.d/.gitlater"]
 
 [events]
-after-install = "gitnow_install"
-after-update = "gitnow_update"
-before-uninstall = "gitnow_uninstall"
+after-install = "gitlater_install"
+after-update = "gitlater_update"
+before-uninstall = "gitlater_uninstall"
 
 [dependencies]

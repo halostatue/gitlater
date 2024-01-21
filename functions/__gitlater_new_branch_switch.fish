@@ -1,7 +1,7 @@
 # GitNow — Speed up your Git workflow. 🐠
-# https://github.com/joseluisq/gitnow
+# https://github.com/halostatue/gitlater
 
-function __gitnow_new_branch_switch
+function __gitlater_new_branch_switch
     set -l branch_name $argv[1]
 
     if test (count $argv) -eq 1

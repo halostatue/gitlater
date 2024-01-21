@@ -21,6 +21,6 @@ if test -n "$err_str"
     exit 1
 end
 
-gitnow --version
+gitlater --version
 
 echo "OK"

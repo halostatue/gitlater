@@ -1,7 +1,7 @@
 # GitNow — Speed up your Git workflow. 🐠
-# https://github.com/joseluisq/gitnow
+# https://github.com/halostatue/gitlater
 
-function __gitnow_get_clip_program -d "Gets the current clip installed program"
+function __gitlater_get_clip_program -d "Gets the current clip installed program"
     set -l v_paste
 
     if type -q xclip

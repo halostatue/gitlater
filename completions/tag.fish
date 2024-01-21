@@ -1,9 +1,9 @@
 # GitNow — Speed up your Git workflow. 🐠
-# https://github.com/joseluisq/gitnow
+# https://github.com/halostatue/gitlater
 
 # Tag command
 
-__gitnow_load_git_functions
+__gitlater_load_git_functions
 
 complete -f -x -c tag \
     -d "List all tags in a lexicographic order and treating tag names as versions"

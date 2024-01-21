@@ -1,7 +1,7 @@
 # GitNow — Speed up your Git workflow. 🐠
-# https://github.com/joseluisq/gitnow
+# https://github.com/halostatue/gitlater
 
-function __gitnow_clone_msg
+function __gitlater_clone_msg
     set -l msg $argv[1]
 
     echo "Repository name is required!"

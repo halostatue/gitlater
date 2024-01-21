@@ -1,12 +1,12 @@
 # GitNow — Speed up your Git workflow. 🐠
-# https://github.com/joseluisq/gitnow
+# https://github.com/halostatue/gitlater
 
-function __gitnow_manual -d "Gitnow: Manual page like"
+function __gitlater_manual -d "Gitnow: Manual page like"
     echo (set_color --bold)"NAME"(set_color normal)
     echo "      GitNow — Speed up your Git workflow. 🐠"
     echo
     echo (set_color --bold)"VERSION"(set_color normal)
-    echo "      $gitnow_version"
+    echo "      $gitlater_version"
     echo
     echo (set_color --bold)"DESCRIPTION"(set_color normal)
     echo "      GitNow contains a rich command set that provides high-level operations on the top of Git(1)."
@@ -59,18 +59,6 @@ function __gitnow_manual -d "Gitnow: Manual page like"
     echo "      "(set_color --bold)"assume"(set_color normal)
     echo "        Ignore changes in certain files temporarily."
     echo
-    echo "      "(set_color --bold)"feature"(set_color normal)
-    echo "        Create a new Gitflow feature branch from the current branch."
-    echo
-    echo "      "(set_color --bold)"hotfix"(set_color normal)
-    echo "        Create a new Gitflow hotfix branch from the current branch."
-    echo
-    echo "      "(set_color --bold)"bugfix"(set_color normal)
-    echo "        Create a new Gitflow bugfix branch from the current branch."
-    echo
-    echo "      "(set_color --bold)"release"(set_color normal)
-    echo "        Create a new Gitflow release branch from the current branch."
-    echo
     echo "      "(set_color --bold)"logs"(set_color normal)
     echo "        Show logs in a fancy way."
     echo
@@ -89,25 +77,21 @@ function __gitnow_manual -d "Gitnow: Manual page like"
     echo "      pull            Alt + D"
     echo "      push            Alt + P"
     echo "      upstream        Alt + U"
-    echo "      feature(1)      Alt + F"
-    echo "      hotfix(1)       Alt + H"
     echo "      logs            Alt + L"
     echo
-    echo "      (1) This command key binding will creates a new branch taking as name some text of the clipboard."
-    echo
     echo (set_color --bold)"CONFIGURATION"(set_color normal)
-    echo "      For a custom configuration (for example keybindings) place a "(set_color --bold)"~/.gitnow"(set_color normal)" file (1) in your home directory."
+    echo "      For a custom configuration (for example keybindings) place a "(set_color --bold)"~/.gitlater"(set_color normal)" file (1) in your home directory."
     echo
-    echo "      (1) An example file it can be found on "(set_color --bold)https://github.com/joseluisq/gitnow/tree/master/.gitnow(set_color normal)
+    echo "      (1) An example file it can be found on "(set_color --bold)https://github.com/halostatue/gitlater/tree/master/.gitlater(set_color normal)
     echo
     echo (set_color --bold)"FURTHER DOCUMENTATION"(set_color normal)
-    echo "      For more details and examples check out "(set_color --bold)https://github.com/joseluisq/gitnow/blob/master/README.md(set_color normal)
+    echo "      For more details and examples check out "(set_color --bold)https://github.com/halostatue/gitlater/blob/master/README.md(set_color normal)
     echo
     echo (set_color --bold)"CONTRIBUTIONS"(set_color normal)
-    echo "      Send bug reports or pull requests to "(set_color --bold)https://github.com/joseluisq/gitnow(set_color normal)
+    echo "      Send bug reports or pull requests to "(set_color --bold)https://github.com/halostatue/gitlater(set_color normal)
     echo
     echo (set_color --bold)"LICENSE"(set_color normal)
-    echo "      GitNow licensed under the MIT License "(set_color --bold)https://github.com/joseluisq/gitnow/blob/master/LICENSE.md(set_color normal)
+    echo "      GitNow licensed under the MIT License "(set_color --bold)https://github.com/halostatue/gitlater/blob/master/LICENSE.md(set_color normal)
     echo
     echo (set_color --bold)"AUTHOR"(set_color normal)
     echo "      (c) 2016-present Jose Quintana "(set_color --bold)"https://github.com/joseluisq"(set_color normal)

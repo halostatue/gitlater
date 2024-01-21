@@ -1,7 +1,7 @@
 # GitNow — Speed up your Git workflow. 🐠
-# https://github.com/joseluisq/gitnow
+# https://github.com/halostatue/gitlater
 
-function __gitnow_clone_params
+function __gitlater_clone_params
     set -l repo
 
     if count $argv >/dev/null

@@ -1,30 +1,30 @@
 # GitNow — Speed up your Git workflow. 🐠
-# https://github.com/joseluisq/gitnow
+# https://github.com/halostatue/gitlater
 
-function __gitnow_load_config -d "Reads the GitNow configuration file"
+function __gitlater_load_config -d "Reads the GitNow configuration file"
     # Sets a clipboard program
-    set g_xpaste (__gitnow_get_clip_program)
+    set g_xpaste (__gitlater_get_clip_program)
 
     # Config file path used by default
-    set -l config_file "$fish_snippets/.gitnow"
+    set -l config_file "$fish_snippets/.gitlater"
 
-    # Download the default `.gitnow` file.
+    # Download the default `.gitlater` file.
     # NOTE: this is only used as a workaround for Fisher.
     #   See https://github.com/jorgebucaran/fisher/pull/573
     if not test -e $config_file
-        curl -sSo $config_file https://raw.githubusercontent.com/joseluisq/gitnow/master/conf.d/.gitnow
+        curl -sSo $config_file https://raw.githubusercontent.com/halostatue/gitlater/master/conf.d/.gitlater
     end
 
     # Prefer custom config file if it exists
-    if test -e $GITNOW_CONFIG_FILE
-        set config_file $GITNOW_CONFIG_FILE
+    if test -e $GITLATER_CONFIG_FILE
+        set config_file $GITLATER_CONFIG_FILE
     else if not test -e $config_file
-        # Otherwise checks if default `.gitnow` file exists,
+        # Otherwise checks if default `.gitlater` file exists,
         # if doesn't exist then skip out file parsing
         return
     end
 
-    # Parse `.gitnow` file content
+    # Parse `.gitlater` file content
 
     # 2 = keybindings
     # 3 = options
@@ -160,7 +160,7 @@ function __gitnow_load_config -d "Reads the GitNow configuration file"
                 case '*'
                     # Check command key against a list of valid commands
                     set -l v_valid 0
-                    for v in $gitnow_commands
+                    for v in $gitlater_commands
                         if [ "$v" = "$v_command_key" ]
                             set v_valid 1
                             break
